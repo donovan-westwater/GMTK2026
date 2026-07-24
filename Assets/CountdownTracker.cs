@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 public class CountdownTracker : MonoBehaviour
 {
     [SerializeField]
-    Text countdownText;
+    TextMeshProUGUI countdownText;
     float countdown = 10f;
     [SerializeField]
     Image loseScreen;

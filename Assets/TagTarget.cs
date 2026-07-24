@@ -9,9 +9,14 @@ public class TagTarget : MonoBehaviour
     Image tagPrompt;
     [SerializeField]
     private AudioClip barkClip;
+    [SerializeField]
+    private Renderer hoodRenderer;
+    [SerializeField]
+    private Renderer clothesRenderer;
+
     static HashSet<TagTarget> activeTargetSet = new HashSet<TagTarget>();
     bool isClosest = false;
-    public bool isReal = true;
+    public bool isReal = false;
 
     // Update is called once per frame
     void Update()
@@ -59,5 +64,15 @@ public class TagTarget : MonoBehaviour
         Destroy(this.gameObject);
         PartnerRandomizer.instance.onRandomizeHandler -= RemoveSelf;
 
+    }
+    public void SetReplacementColor(Color rColor)
+    {
+        hoodRenderer.material.SetColor(Shader.PropertyToID("_ReplacementColor"), rColor);
+        clothesRenderer.material.SetColor(Shader.PropertyToID("_ReplacementColor"), rColor);
+    }
+    public void DisableChromaKey()
+    {
+        hoodRenderer.material.SetFloat(Shader.PropertyToID("_Threshold"), 0f);
+        clothesRenderer.material.SetFloat(Shader.PropertyToID("_Threshold"), 0f);
     }
 }
