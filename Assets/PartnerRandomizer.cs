@@ -32,7 +32,11 @@ public class PartnerRandomizer : MonoBehaviour
         g.SetActive(true);
         g.GetComponent<TagTarget>().AddSelf();
         g.transform.position = pos;
-        g.transform.rotation.SetLookRotation((player.transform.position - pos).normalized, Vector3.up);
+        Vector3 forward = (player.transform.position - pos);
+        forward.y = 0f;
+        //The model's coordinate space got fucked up during export. Just roll with it
+        Quaternion rot = Quaternion.LookRotation(Vector3.up,-forward.normalized);
+        g.transform.rotation = rot;
     }
 
 }

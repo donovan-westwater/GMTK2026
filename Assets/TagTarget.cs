@@ -7,6 +7,8 @@ public class TagTarget : MonoBehaviour
 {
     [SerializeField]
     Image tagPrompt;
+    [SerializeField]
+    private AudioClip barkClip;
     static HashSet<TagTarget> activeTargetSet = new HashSet<TagTarget>();
     bool isClosest = false;
     public bool isReal = true;
@@ -35,6 +37,7 @@ public class TagTarget : MonoBehaviour
             tagPrompt.gameObject.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
+                CountdownTracker.Instance.playerSource.PlayOneShot(barkClip);
                 if (isReal) CountdownTracker.Instance.ResetCountdown();
                 else CountdownTracker.Instance.TriggerLoss();
                 RemoveSelf();
