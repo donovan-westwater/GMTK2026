@@ -21,7 +21,7 @@ public class PartnerRandomizer : MonoBehaviour
     public OnRandomize onRandomizeHandler;
     public int maxPartnerCount = 10;
     public static HashSet<Vector2Int> OccupiedCellSet = new HashSet<Vector2Int>();
-    const int maxCellBounds = 30;
+    const int maxCellBounds = 24;
     int tagCounter = 0;
     int numOfPartners = 1;
     int numOfAddedFurniture = 2;
