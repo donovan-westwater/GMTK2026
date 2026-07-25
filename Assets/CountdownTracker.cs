@@ -12,9 +12,14 @@ public class CountdownTracker : MonoBehaviour
     float countdown = 10f;
     [SerializeField]
     Image loseScreen;
+    [SerializeField]
+    Image introScreen;
     public static CountdownTracker Instance;
     public AudioSource playerSource;
     private AudioClip mainSong;
+    [HideInInspector]
+    public bool beganGame = false;
+    private bool loseGame = false;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -24,23 +29,34 @@ public class CountdownTracker : MonoBehaviour
         mainSong = Resources.Load<AudioClip>("Benny Hill Show");
         playerSource.clip = mainSong;
         playerSource.loop = true;
-        playerSource.Play();
+        Time.timeScale = 0f;
     }
     // Update is called once per frame
     void Update()
     {
-        countdown -= Time.deltaTime;
-        if (countdown < 0) countdown = 0;
-        countdownText.text = $"{Mathf.FloorToInt(countdown)}!";
+        if (!beganGame)
+        {
+            if (Input.GetKeyDown(KeyCode.E)) BeginGame();
+            return;
+        }
+        if (!loseGame)
+        {
+            countdown -= Time.deltaTime;
+            if (countdown < 0) countdown = 0;
+            countdownText.text = $"{Mathf.FloorToInt(countdown)}!";
+        }
         if (countdown <= 0f)
         {
+            countdownText.transform.parent.gameObject.SetActive(false);
             loseScreen.gameObject.SetActive(true);
-            Time.timeScale = 0;
+            playerSource.gameObject.GetComponent<FirstPersonController>().enabled= false;
+            Cursor.lockState = CursorLockMode.None;
         }
 
     }
     public void Reload()
     {
+        TagTarget.ClearActiveTargets();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
     public void Exit()
@@ -55,5 +71,14 @@ public class CountdownTracker : MonoBehaviour
     {
         countdown = 10f;
         PartnerRandomizer.instance.RandomizePartnerPlacement();
+    }
+    public void BeginGame()
+    {
+        beganGame = true;
+        playerSource.Play();
+        Time.timeScale = 1f;
+        countdownText.transform.parent.gameObject.SetActive(true);
+        playerSource.gameObject.GetComponent<FirstPersonController>().lockCursor = true;
+        introScreen.gameObject.SetActive(false);
     }
 }

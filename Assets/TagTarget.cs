@@ -20,9 +20,11 @@ public class TagTarget : MonoBehaviour
     [HideInInspector]
     public Vector2Int cell;
 
+
     // Update is called once per frame
     void Update()
     {
+        if (!CountdownTracker.Instance.beganGame) return;
         float dist = (PartnerRandomizer.instance.playerPos - this.transform.position).magnitude;
         int closestTargetID = -1;
         float minDist = 999f;
@@ -64,7 +66,6 @@ public class TagTarget : MonoBehaviour
     {
         activeTargetSet.Remove(this);
         Destroy(this.gameObject);
-        PartnerRandomizer.instance.onRandomizeHandler -= RemoveSelf;
 
     }
     public void SetReplacementColor(Color rColor)
@@ -76,5 +77,13 @@ public class TagTarget : MonoBehaviour
     {
         hoodRenderer.material.SetFloat(Shader.PropertyToID("_Threshold"), 0f);
         clothesRenderer.material.SetFloat(Shader.PropertyToID("_Threshold"), 0f);
+    }
+    private void OnDestroy()
+    {
+        PartnerRandomizer.instance.onRandomizeHandler -= RemoveSelf;
+    }
+    public static void ClearActiveTargets()
+    {
+        activeTargetSet.Clear();
     }
 }
