@@ -11,14 +11,19 @@ public class PartnerRandomizer : MonoBehaviour
     GameObject player;
     [SerializeField]
     Image newRuleExplainer;
+    [SerializeField]
+    GameObject wallGroup;
     public Vector3 playerPos => player.transform.position;
-    Vector2 randomizationExtents = new Vector2(9f, 9f);
     public static PartnerRandomizer instance;
     public delegate void OnRandomize();
     public OnRandomize onRandomizeHandler;
     public int maxPartnerCount = 10;
+    public static HashSet<Vector2Int> OccupiedCellSet = new HashSet<Vector2Int>();
+    const int maxCellBounds = 50;
     int tagCounter = 0;
     int numOfPartners = 1;
+    int cellBounds = 4;
+    
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -29,23 +34,50 @@ public class PartnerRandomizer : MonoBehaviour
     }
     public void RandomizePartnerPlacement()
     {
+        OccupiedCellSet.Clear();
         if (onRandomizeHandler != null) onRandomizeHandler();
 
         if (tagCounter > 5)
         {
             numOfPartners = Mathf.Clamp(numOfPartners + 1, 0, maxPartnerCount);
             newRuleExplainer.gameObject.SetActive(true);
+            int prevBounds = cellBounds;
+            if(tagCounter > 10) cellBounds = Mathf.Clamp(cellBounds+2,0,maxCellBounds);
+            if(cellBounds != prevBounds)
+            {
+                foreach (Transform w in wallGroup.transform)
+                {
+                    Vector3 dir = w.position;
+                    dir.y = 0;
+                    dir = dir.normalized;
+                    w.position += dir;
+                }
+            }
         }
         for(int i = 0; i < numOfPartners; i++)
         {
+
+            Vector2Int cell = new Vector2Int(
+                Random.Range(-cellBounds / 2, cellBounds / 2),
+                Random.Range(-cellBounds / 2, cellBounds / 2));
+            while (OccupiedCellSet.Contains(cell))
+            {
+                cell = new Vector2Int(
+                    Random.Range(-cellBounds / 2, cellBounds / 2),
+                    Random.Range(-cellBounds / 2, cellBounds / 2));
+            }
+            Vector2 innerCellPos = new Vector2(
+                Random.Range(cell.x, cell.x + 1f),
+                Random.Range(cell.y, cell.y + 1f));
             Vector3 pos = new Vector3(
-        Random.Range(-randomizationExtents.x / 2f, randomizationExtents.x / 2f)
-        , 0
-        , Random.Range(-randomizationExtents.x / 2f, randomizationExtents.x / 2f));
+            innerCellPos.x
+            , 0
+            , innerCellPos.y);
             var g = GameObject.Instantiate(partnerPrefab);
             g.SetActive(true);
             var gTarget = g.GetComponent<TagTarget>();
             gTarget.AddSelf();
+            gTarget.cell = cell;
             if(i == 0)
             {
                 gTarget.isReal = true;

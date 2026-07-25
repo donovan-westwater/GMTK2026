@@ -17,6 +17,8 @@ public class TagTarget : MonoBehaviour
     static HashSet<TagTarget> activeTargetSet = new HashSet<TagTarget>();
     bool isClosest = false;
     public bool isReal = false;
+    [HideInInspector]
+    public Vector2Int cell;
 
     // Update is called once per frame
     void Update()
