@@ -14,12 +14,15 @@ public class CountdownTracker : MonoBehaviour
     Image loseScreen;
     [SerializeField]
     Image introScreen;
+    [SerializeField]
+    Image winScreen;
     public static CountdownTracker Instance;
     public AudioSource playerSource;
     private AudioClip mainSong;
     [HideInInspector]
     public bool beganGame = false;
     private bool loseGame = false;
+    public bool winGame = false;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -80,5 +83,11 @@ public class CountdownTracker : MonoBehaviour
         countdownText.transform.parent.gameObject.SetActive(true);
         playerSource.gameObject.GetComponent<FirstPersonController>().lockCursor = true;
         introScreen.gameObject.SetActive(false);
+    }
+    public void EndGame()
+    {
+        playerSource.Stop();
+        countdownText.transform.parent.gameObject.SetActive(false);
+        winScreen.gameObject.SetActive(true);
     }
 }

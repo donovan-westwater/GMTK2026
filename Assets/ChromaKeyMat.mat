@@ -30,6 +30,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Threashold: 0.91
+    - _Threshold: 0.33
     m_Colors:
     - _ChromaKeyColor: {r: 0, g: 0, b: 0, a: 0}
     - _ReplacementColor: {r: 1, g: 0, b: 0.07450981, a: 1}

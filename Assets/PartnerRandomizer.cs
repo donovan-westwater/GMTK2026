@@ -13,15 +13,18 @@ public class PartnerRandomizer : MonoBehaviour
     Image newRuleExplainer;
     [SerializeField]
     GameObject wallGroup;
+    [SerializeField]
+    GameObject[] possibleFurniture;
     public Vector3 playerPos => player.transform.position;
     public static PartnerRandomizer instance;
     public delegate void OnRandomize();
     public OnRandomize onRandomizeHandler;
     public int maxPartnerCount = 10;
     public static HashSet<Vector2Int> OccupiedCellSet = new HashSet<Vector2Int>();
-    const int maxCellBounds = 50;
+    const int maxCellBounds = 30;
     int tagCounter = 0;
     int numOfPartners = 1;
+    int numOfAddedFurniture = 2;
     int cellBounds = 4;
     
     private void Awake()
@@ -42,7 +45,17 @@ public class PartnerRandomizer : MonoBehaviour
             numOfPartners = Mathf.Clamp(numOfPartners + 1, 0, maxPartnerCount);
             newRuleExplainer.gameObject.SetActive(true);
             int prevBounds = cellBounds;
-            if(tagCounter > 10) cellBounds = Mathf.Clamp(cellBounds+2,0,maxCellBounds);
+            if (tagCounter > 10)
+            {
+                if(cellBounds == maxCellBounds)
+                {
+                    //Go to Win Screen
+                    CountdownTracker.Instance.EndGame();
+                    return;
+                }
+                cellBounds = Mathf.Clamp(cellBounds + 2, 0, maxCellBounds);
+                numOfAddedFurniture += 2;
+            }
             if(cellBounds != prevBounds)
             {
                 foreach (Transform w in wallGroup.transform)
@@ -52,8 +65,26 @@ public class PartnerRandomizer : MonoBehaviour
                     dir = dir.normalized;
                     w.position += dir;
                 }
+                for (int i = 0; i < numOfAddedFurniture; i++)
+                {
+                    int rand = Random.Range(0, possibleFurniture.Length);
+                    GameObject furniture = GameObject.Instantiate(possibleFurniture[rand]);
+                    Vector2Int cell = new Vector2Int(
+                        Random.Range(-cellBounds / 2, cellBounds / 2),
+                        Random.Range(-cellBounds / 2, cellBounds / 2));
+                    while (OccupiedCellSet.Contains(cell))
+                    {
+                        cell = new Vector2Int(
+                            Random.Range(-cellBounds / 2, cellBounds / 2),
+                            Random.Range(-cellBounds / 2, cellBounds / 2));
+                    }
+                    furniture.transform.position = new Vector3(cell.x + .5f, 0f, cell.y + .5f);
+                    OccupiedCellSet.Add(cell);
+
+                }
             }
         }
+        
         for(int i = 0; i < numOfPartners; i++)
         {
 
