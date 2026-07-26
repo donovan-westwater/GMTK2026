@@ -142,5 +142,8 @@ public class PartnerRandomizer : MonoBehaviour
 
         tagCounter++;
     }
-
+    public void DisableRuleReminder()
+    {
+        newRuleExplainer.gameObject.SetActive(false);
+    }
 }

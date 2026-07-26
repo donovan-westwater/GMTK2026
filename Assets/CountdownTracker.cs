@@ -52,6 +52,7 @@ public class CountdownTracker : MonoBehaviour
         {
             countdownText.transform.parent.gameObject.SetActive(false);
             loseScreen.gameObject.SetActive(true);
+            PartnerRandomizer.instance.DisableRuleReminder();
             playerSource.gameObject.GetComponent<FirstPersonController>().enabled= false;
             Cursor.lockState = CursorLockMode.None;
         }
