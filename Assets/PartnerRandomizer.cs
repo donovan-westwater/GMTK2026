@@ -112,6 +112,7 @@ public class PartnerRandomizer : MonoBehaviour
             , 0
             , innerCellPos.y);
             var g = GameObject.Instantiate(partnerPrefab);
+            g.name = $"{partnerPrefab.name}_{i}";
             g.SetActive(true);
             var gTarget = g.GetComponent<TagTarget>();
             gTarget.AddSelf();

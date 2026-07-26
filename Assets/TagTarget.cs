@@ -41,7 +41,13 @@ public class TagTarget : MonoBehaviour
         }
         if (dist < minDist) isClosest = true;
         else isClosest = false;
-        if (isClosest && dist < 1f)
+        Camera c = Camera.main;
+        Ray r = c.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
+        r.origin = c.transform.position;
+        RaycastHit hitinfo;
+        bool hit = Physics.Raycast(r,out hitinfo, 1f);
+        hit = hit && hitinfo.collider.name.Equals(this.transform.name);
+        if (isClosest && dist < 1f &&  hit)
         {
             tagPrompt.gameObject.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
@@ -85,5 +91,13 @@ public class TagTarget : MonoBehaviour
     public static void ClearActiveTargets()
     {
         activeTargetSet.Clear();
+    }
+    private void OnDrawGizmos()
+    {
+        Camera c = Camera.main;
+        Ray r = c.ScreenPointToRay(new Vector3(Screen.width/2f,Screen.height/2f,0));
+        r.origin = c.transform.position;
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawRay(r);
     }
 }

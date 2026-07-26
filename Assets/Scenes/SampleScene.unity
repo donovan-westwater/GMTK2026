@@ -1524,6 +1524,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstPersonController
       objectReference: {fileID: 0}
+    - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: far clip plane
       value: 100
@@ -1932,7 +1936,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -89.84, y: -122.5}
+  m_AnchoredPosition: {x: -94.4, y: -107.3}
   m_SizeDelta: {x: 124.1, y: 21.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1062580784
@@ -3860,7 +3864,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 88.47, y: -122.4}
+  m_AnchoredPosition: {x: 88.47, y: -103.9}
   m_SizeDelta: {x: 131.4, y: 23.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1662171563
