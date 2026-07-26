@@ -89,5 +89,7 @@ public class CountdownTracker : MonoBehaviour
         playerSource.Stop();
         countdownText.transform.parent.gameObject.SetActive(false);
         winScreen.gameObject.SetActive(true);
+        playerSource.gameObject.GetComponent<FirstPersonController>().lockCursor = false;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
