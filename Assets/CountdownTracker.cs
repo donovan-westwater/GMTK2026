@@ -29,7 +29,7 @@ public class CountdownTracker : MonoBehaviour
     }
     private void Start()
     {
-        mainSong = Resources.Load<AudioClip>("HallOfTheMountainKing-Trimmed");
+        mainSong = Resources.Load<AudioClip>("HallOfTheMountianKing-Trimmed");
         playerSource.clip = mainSong;
         playerSource.loop = true;
         Time.timeScale = 0f;

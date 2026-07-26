@@ -50,6 +50,7 @@ public class PartnerRandomizer : MonoBehaviour
                 if(cellBounds == maxCellBounds)
                 {
                     //Go to Win Screen
+                    newRuleExplainer.gameObject.SetActive(false);
                     CountdownTracker.Instance.EndGame();
                     return;
                 }
