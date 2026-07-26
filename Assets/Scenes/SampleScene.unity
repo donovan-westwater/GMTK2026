@@ -412,6 +412,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6526245878398251178, guid: a912b11061ef305479415bb213928c82, type: 3}
+--- !u!1 &160621956 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0fb5fd80f60114f46a98d0833cc13c28, type: 3}
+  m_PrefabInstance: {fileID: 197626518}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &161433402
 Mesh:
   m_ObjectHideFlags: 0
@@ -1010,6 +1015,7 @@ MonoBehaviour:
   - {fileID: 5563982491785687425, guid: c1623ab984d04834894258c1ae15d6e6, type: 3}
   - {fileID: 9076676481256302400, guid: 8f97b702b0048824582fe0590e1aaaf4, type: 3}
   - {fileID: 7566347807887125034, guid: c3da50a29926af645bd23a82ae5eac14, type: 3}
+  windows: {fileID: 160621956}
   maxPartnerCount: 10
 --- !u!1 &705507993
 GameObject:
@@ -1926,8 +1932,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 124.1, y: 27.8}
+  m_AnchoredPosition: {x: -89.84, y: -122.5}
+  m_SizeDelta: {x: 124.1, y: 21.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1062580784
 MonoBehaviour:
@@ -3068,7 +3074,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -5.4}
+  m_AnchoredPosition: {x: 0, y: 0.00000047683716}
   m_SizeDelta: {x: 274.81, y: 53.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1515005427
@@ -3854,7 +3860,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.0000076293945}
+  m_AnchoredPosition: {x: 88.47, y: -122.4}
   m_SizeDelta: {x: 131.4, y: 23.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1662171563

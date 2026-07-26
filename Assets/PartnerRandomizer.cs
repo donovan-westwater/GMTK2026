@@ -15,6 +15,8 @@ public class PartnerRandomizer : MonoBehaviour
     GameObject wallGroup;
     [SerializeField]
     GameObject[] possibleFurniture;
+    [SerializeField]
+    GameObject windows;
     public Vector3 playerPos => player.transform.position;
     public static PartnerRandomizer instance;
     public delegate void OnRandomize();
@@ -41,13 +43,17 @@ public class PartnerRandomizer : MonoBehaviour
         if (onRandomizeHandler != null) onRandomizeHandler();
 
         if (tagCounter > 5)
-        {
+        {          
             numOfPartners = Mathf.Clamp(numOfPartners + 1, 0, maxPartnerCount);
             newRuleExplainer.gameObject.SetActive(true);
             int prevBounds = cellBounds;
             if (tagCounter > 10)
             {
-                if(cellBounds == maxCellBounds)
+                var window = GameObject.Instantiate(windows, windows.transform.parent);
+                window.transform.localPosition += Vector3.right * 0.0214f * cellBounds / 2;
+                window = GameObject.Instantiate(windows, windows.transform.parent);
+                window.transform.localPosition -= Vector3.right * 0.0214f * cellBounds / 2;
+                if (cellBounds == maxCellBounds)
                 {
                     //Go to Win Screen
                     newRuleExplainer.gameObject.SetActive(false);
